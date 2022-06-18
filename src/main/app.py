@@ -3,9 +3,8 @@ import logging
 import coloredlogs
 from flask import Flask
 from flask_restful import Api
-from src.main.config.lib_instance import db
-
 from src.main.config import env_vars
+from src.main.config.lib_instance import db, ma
 
 logger = logging.getLogger(__name__)
 coloredlogs.install(level="DEBUG")
@@ -15,6 +14,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+ma.init_app(app)
 
 api = Api(app)
 
