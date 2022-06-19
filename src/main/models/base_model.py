@@ -1,5 +1,6 @@
-from src.main.config.lib_instance import db
 from datetime import datetime
+
+from src.main.config.lib_instance import db
 
 
 # Define a base model for other database tables to inherit
