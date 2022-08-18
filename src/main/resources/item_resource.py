@@ -3,6 +3,10 @@ import logging
 from flask import request
 from flask_restful import Resource
 from src.main.models.item_model import Item
+from src.main.models.section_model import ItemSchema
+
+items_schema = ItemSchema(many=True)
+item_schema = ItemSchema()
 
 
 class ItemResource(Resource):
@@ -11,9 +15,10 @@ class ItemResource(Resource):
 
 class ItemResourceList(Resource):
     def get(self):
-        items = [item.to_dict() for item in Item.find_all()]
-        logging.info(items)
-        return {"items": items}
+        items_result_set = Item.find_all()
+        data = items_schema.dump(items_result_set)
+        logging.info(data)
+        return {"items": data}
 
     def post(self):
         input_body = request.get_json()
